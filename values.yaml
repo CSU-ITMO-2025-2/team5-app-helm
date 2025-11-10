@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/csu-itmo-2025-2/demo-app
   pullPolicy: Always
-  tag: "sha-95729c2"
+  tag: "sha-dc46962"
 imagePullSecrets:
   - name: ghcr-secret
 nameOverride: ""
