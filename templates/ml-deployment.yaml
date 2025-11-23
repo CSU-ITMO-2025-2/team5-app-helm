@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-service
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: ml-service
+  template:
+    metadata:
+      labels:
+        app: ml-service
+    spec:
+      containers:
+        - name: ml-service
+          image: "{{ .Values.ml.image.repository }}:{{ .Values.ml.image.tag }}"
+          envFrom:
+            - secretRef:
+                name: team5-secret
+          ports:
+            - containerPort: 7070
