@@ -11,8 +11,8 @@ producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
     tag: "sha-db0d603"
-imagePullSecrets:
-  - name: ghcr-secret
+# imagePullSecrets:
+#   - name: ghcr-secret
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
