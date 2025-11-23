@@ -15,16 +15,22 @@ spec:
       containers:
         - name: auth-service
           image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
+          ports:
+            - containerPort: 8000
           envFrom:
             - secretRef:
                 name: team5-secret
-          ports:
-            - containerPort: 8000
           readinessProbe:
             httpGet:
               path: /docs
               port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /docs
               port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaauth .Values.resources | nindent 12 }}
