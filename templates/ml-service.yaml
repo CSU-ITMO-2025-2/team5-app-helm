@@ -6,6 +6,6 @@ spec:
   selector:
     app: ml-service
   ports:
-    - name: http
-      port: 7070
-      targetPort: 7070
+    - name: ml
+      port: 5050
+      targetPort: 5050

@@ -6,6 +6,6 @@ spec:
   selector:
     app: producer-service
   ports:
-    - name: http
+    - name: producer
       port: 5050
       targetPort: 5050
