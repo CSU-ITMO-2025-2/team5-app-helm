@@ -58,5 +58,3 @@ tolerations: []
 affinity: {}
 env: {}
 databaseSecretName: "db-credentials"
-image:
-  tag: sha-760f97c
