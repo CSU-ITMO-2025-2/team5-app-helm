@@ -1,18 +1,23 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: team5-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    {{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
-  ingressClassName: nginx
+  ingressClassName: {{ .Values.ingress.className }}
   tls:
     - hosts:
-        - {{ .Values.ingress.hosts.0.host }}
-      secretName: {{ .Values.ingress.tls.0.secretName }}
+        - {{ (index .Values.ingress.hosts 0).host }}
+      secretName: {{ (index .Values.ingress.tls 0).secretName }}
 
   rules:
-    - host: {{ .Values.ingress.hosts.0.host }}
+    - host: {{ (index .Values.ingress.hosts 0).host }}
       http:
         paths:
           - path: /auth(/|$)(.*)
@@ -38,3 +43,4 @@ spec:
                 name: producer-service
                 port:
                   number: 5050
+{{- end }}
