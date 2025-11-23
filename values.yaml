@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: ghcr.io/csu-itmo-2025-2/demo-app
+  repository: ghcr.io/csu-itmo-2025-2/team5-app
   pullPolicy: Always
   tag: "sha-dc46962"
 imagePullSecrets:
@@ -24,14 +24,14 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   hosts:
-    - host: demo.kubepractice.ru
+    - host: team5.kubepractice.ru
       paths:
         - path: /
           pathType: Prefix
   tls:
     - hosts:
-        - demo.kubepractice.ru
-      secretName: demo-prod-secret
+        - team5.kubepractice.ru
+      secretName: team5-prod-secret
 resources:
   limits:
     cpu: 250m
@@ -44,7 +44,7 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 80 # 👈 Добавлено
+  targetMemoryUtilizationPercentage: 80
 nodeSelector: {}
 tolerations: []
 affinity: {}
