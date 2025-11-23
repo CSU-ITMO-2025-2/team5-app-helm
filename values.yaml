@@ -1,5 +1,4 @@
 replicaCount: 1
-
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
@@ -12,26 +11,20 @@ producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
     tag: "latest"
-
 imagePullSecrets:
   - name: ghcr-secret
-
 nameOverride: ""
 fullnameOverride: ""
-
 serviceAccount:
   create: true
   annotations: {}
   name: ""
-
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-
 service:
   type: ClusterIP
   port: 80
-
 ingress:
   enabled: true
   className: "nginx"
@@ -47,7 +40,6 @@ ingress:
     - hosts:
         - team5.kubepractice.ru
       secretName: team5-prod-secret
-
 resources:
   limits:
     cpu: 250m
@@ -55,17 +47,16 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 env: {}
 databaseSecretName: "db-credentials"
+image:
+  tag: sha-760f97c
