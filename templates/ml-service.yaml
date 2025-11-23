@@ -7,5 +7,5 @@ spec:
     app: ml-service
   ports:
     - name: ml
-      port: 5050
-      targetPort: 5050
+      port: 7070
+      targetPort: 7070
