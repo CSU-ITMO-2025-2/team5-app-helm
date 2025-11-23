@@ -5,18 +5,12 @@ metadata:
   labels:
     {{- include "team5-app.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "team5-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
         {{- include "team5-app.selectorLabels" . | nindent 8 }}
     spec:
@@ -24,63 +18,91 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
       serviceAccountName: {{ include "team5-app.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
       containers:
-        - name: {{ .Chart.Name }}
+        - name: auth-service
+          image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: auth
+              containerPort: 8000
           envFrom:
             - secretRef:
                 name: {{ .Values.externalSecretName | default "team5-secret" }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: service1
-              containerPort: 8000
-              protocol: TCP
-            - name: service2
-              containerPort: 7070
-              protocol: TCP
-            - name: service3
-              containerPort: 5050
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-            initialDelaySeconds: 15
-            periodSeconds: 10
-            failureThreshold: 3
           env:
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.databaseSecretName }} 
-                  key: DATABASE_URL 
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: auth
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: auth
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+        - name: ml-service
+          image: "{{ .Values.ml.image.repository }}:{{ .Values.ml.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: ml
+              containerPort: 7070
+          envFrom:
+            - secretRef:
+                name: {{ .Values.externalSecretName | default "team5-secret" }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: ml
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: ml
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+        - name: producer-service
+          image: "{{ .Values.producer.image.repository }}:{{ .Values.producer.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: producer
+              containerPort: 5050
+          envFrom:
+            - secretRef:
+                name: {{ .Values.externalSecretName | default "team5-secret" }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: producer
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: producer
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
       {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-
