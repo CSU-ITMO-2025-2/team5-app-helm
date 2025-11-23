@@ -59,4 +59,4 @@ affinity: {}
 env: {}
 databaseSecretName: "db-credentials"
 image:
-  tag: sha-760f97c
+  tag: sha-04c9081
