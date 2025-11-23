@@ -1,26 +1,30 @@
-{{- if .Values.ingress.enabled }}
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "team5-app.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: team5-ingress
+  name: {{ $fullName }}
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
     {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: nginx
+
   tls:
     - hosts:
-        - {{ (index .Values.ingress.hosts 0).host }}
+        {{- range .Values.ingress.hosts }}
+        - {{ .host }}
+        {{- end }}
       secretName: {{ (index .Values.ingress.tls 0).secretName }}
 
   rules:
     - host: {{ (index .Values.ingress.hosts 0).host }}
       http:
         paths:
-          - path: /auth(/|$)(.*)
+          - path: /auth/?(.*)
             pathType: Prefix
             backend:
               service:
@@ -28,7 +32,7 @@ spec:
                 port:
                   number: 8000
 
-          - path: /ml(/|$)(.*)
+          - path: /ml/?(.*)
             pathType: Prefix
             backend:
               service:
@@ -36,7 +40,7 @@ spec:
                 port:
                   number: 7070
 
-          - path: /producer(/|$)(.*)
+          - path: /producer/?(.*)
             pathType: Prefix
             backend:
               service:
