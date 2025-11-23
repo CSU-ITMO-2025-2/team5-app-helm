@@ -23,8 +23,13 @@ podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
 service:
-  type: ClusterIP
-  port: 80
+  ports:
+    - name: auth
+      port: 8000
+    - name: ml
+      port: 7070
+    - name: producer
+      port: 5050
 ingress:
   enabled: true
   className: "nginx"
