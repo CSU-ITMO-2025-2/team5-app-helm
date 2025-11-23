@@ -2,15 +2,15 @@ replicaCount: 1
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
-    tag: "sha-8614bab"
+    tag: "sha-0f9b00d"
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
-    tag: "sha-8614bab"
+    tag: "sha-0f9b00d"
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
-    tag: "sha-8614bab"
+    tag: "sha-0f9b00d"
 # imagePullSecrets:
 #   - name: ghcr-secret
 nameOverride: ""
