@@ -22,13 +22,13 @@ spec:
                 name: team5-secret
           readinessProbe:
             httpGet:
-              path: /ml/docs
+              path: /docs
               port: 7070
             initialDelaySeconds: 3
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /ml/docs
+              path: /docs
               port: 7070
             initialDelaySeconds: 5
             periodSeconds: 10

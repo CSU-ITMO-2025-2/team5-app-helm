@@ -22,13 +22,13 @@ spec:
                 name: team5-secret
           readinessProbe:
             httpGet:
-              path: /producer/docs
+              path: /docs
               port: 5050
             initialDelaySeconds: 3
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /producer/docs
+              path: /docs
               port: 5050
             initialDelaySeconds: 5
             periodSeconds: 10
