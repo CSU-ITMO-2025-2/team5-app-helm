@@ -29,13 +29,22 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.externalSecretName | default "team5-secret" }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
+            - name: service1
               containerPort: 8000
+              protocol: TCP
+            - name: service2
+              containerPort: 7070
+              protocol: TCP
+            - name: service3
+              containerPort: 5050
               protocol: TCP
           livenessProbe:
             httpGet:
