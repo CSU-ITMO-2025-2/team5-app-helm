@@ -64,5 +64,13 @@ affinity: {}
 databaseSecretName: "db-credentials"
 kafka:
   enabled: true
+  replicaCount: 1
+  zookeeper:
+    replicaCount: 1
+  service:
+    type: ClusterIP
+    name: kafka
+    port: 9092
+
 env:
-  KAFKA_BOOTSTRAP_SERVERS: team5-kafka:9092
+  KAFKA_BOOTSTRAP_SERVERS: kafka.team5-ns.svc.cluster.local:9092
