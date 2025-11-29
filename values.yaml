@@ -71,6 +71,15 @@ kafka:
     type: ClusterIP
     name: kafka
     port: 9092
+  persistence:
+    enabled: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
 
 env:
   KAFKA_BOOTSTRAP_SERVERS: kafka.team5-ns.svc.cluster.local:9092
