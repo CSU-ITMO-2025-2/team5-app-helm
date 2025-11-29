@@ -22,7 +22,7 @@ spec:
                 name: team5-secret
           env:                                  
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "{{ .Release.Name }}-kafka:9092"
+              value: "{{ include "team5-app.fullname" . }}-kafka-svc:{{ .Values.kafka.service.port }}"
           readinessProbe:
             httpGet:
               path: /docs
