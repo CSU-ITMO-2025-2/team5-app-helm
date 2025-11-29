@@ -66,8 +66,8 @@ env: {}
 zookeeper:
   enabled: true
   image:
-    repository: bitnami/zookeeper
-    tag: 3.9.2
+    repository: confluentinc/cp-zookeeper
+    tag: 7.8.0
   service:
     port: 2181
   resources:
@@ -80,8 +80,8 @@ zookeeper:
 kafka:
   enabled: true
   image:
-    repository: bitnami/kafka
-    tag: 3.7.0
+    repository: confluentinc/cp-kafka
+    tag: 7.8.0
   service:
     port: 9092
   resources:
