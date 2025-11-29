@@ -65,21 +65,28 @@ databaseSecretName: "db-credentials"
 kafka:
   enabled: true
   replicaCount: 1
+  auth:
+    clientProtocol: plaintext
+    interBrokerProtocol: plaintext
   zookeeper:
     replicaCount: 1
+    auth:
+      client:
+        clientPassword: ""
+        serverPassword: ""
+        secrets: ""
   service:
     type: ClusterIP
-    name: kafka
     port: 9092
   persistence:
     enabled: false
   resources:
     requests:
       cpu: 100m
-      memory: 128Mi
-    limits:
-      cpu: 250m
       memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
 
 env:
-  KAFKA_BOOTSTRAP_SERVERS: kafka.team5-ns.svc.cluster.local:9092
+  KAFKA_BOOTSTRAP_SERVERS: "team5-app-kafka:9092"
