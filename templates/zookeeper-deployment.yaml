@@ -26,7 +26,9 @@ spec:
           ports:
             - containerPort: {{ .Values.zookeeper.service.port }}
           env:
-            - name: ALLOW_ANONYMOUS_LOGIN
-              value: "yes"
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: "{{ .Values.zookeeper.service.port }}"
+            - name: ZOOKEEPER_TICK_TIME
+              value: "2000"
           resources:
             {{- toYaml .Values.zookeeper.resources | nindent 12 }}
