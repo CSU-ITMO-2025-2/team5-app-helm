@@ -9,8 +9,8 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetesio/name: {{ include "team5-app.name" . }}
-      app.kubernetesio/instance: {{ .Release.Name }}
+      app.kubernetes.io/name: {{ include "team5-app.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: kafka
   template:
     metadata:

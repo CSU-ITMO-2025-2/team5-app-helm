@@ -16,7 +16,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "team5-app.name" . }}
-        app.kubernetesio/instance: {{ .Release.Name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: zookeeper
     spec:
       containers:
@@ -30,4 +30,3 @@ spec:
               value: "yes"
           resources:
             {{- toYaml .Values.zookeeper.resources | nindent 12 }}
-            
