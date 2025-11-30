@@ -19,12 +19,19 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: zookeeper
     spec:
+      securityContext: 
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
         - name: zookeeper
           image: "{{ .Values.zookeeper.image.repository }}:{{ .Values.zookeeper.image.tag }}"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: {{ .Values.zookeeper.service.port }}
+          securityContext: 
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
           env:
             - name: ZOOKEEPER_CLIENT_PORT
               value: "{{ .Values.zookeeper.service.port }}"

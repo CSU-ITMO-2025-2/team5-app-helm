@@ -19,12 +19,19 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: kafka
     spec:
+      securityContext: 
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
         - name: kafka
           image: "{{ .Values.kafka.image.repository }}:{{ .Values.kafka.image.tag }}"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: {{ .Values.kafka.service.port }}
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
           env:
             - name: KAFKA_BROKER_ID
               value: "1"
