@@ -15,9 +15,9 @@ notification:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-notification
     tag: latest
-kafka:
-  cluster: my-cluster
-  namespace: kafka
+# kafka:
+#   cluster: my-cluster
+#   namespace: kafka
 monitoring:
   enabled: true
   prometheus:
