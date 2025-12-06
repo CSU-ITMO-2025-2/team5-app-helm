@@ -99,6 +99,8 @@ service:
       port: 7070
     - name: producer
       port: 5050
+    - name: notification
+      port: 7071
 ingress:
   enabled: true
   className: "nginx"
