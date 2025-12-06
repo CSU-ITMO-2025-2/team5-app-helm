@@ -11,8 +11,67 @@ producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
     tag: "sha-4589b1c"
-# imagePullSecrets:
-#   - name: ghcr-secret
+monitoring:
+  enabled: true
+  prometheus:
+    image:
+      repository: quay.io/prometheus/prometheus
+      tag: "v2.46.0"
+    retention: "12h"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  grafana:
+    adminPasswordExternalSecret: true
+    externalSecretPath: "kv/data/team5/grafana"
+    externalSecretProperty: "ADMIN_PASSWORD"
+    image:
+      repository: grafana/grafana
+      tag: "10.3.0"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 400Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+  loki:
+    image:
+      repository: grafana/loki
+      tag: "2.9.2"
+    wal:
+      useEmptyDir: true
+    securityContext:
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "200Mi"
+      limits:
+        cpu: "200m"
+        memory: "400Mi"
+  promtail:
+    image:
+      repository: grafana/promtail
+      tag: "2.9.2"
+    resources:
+      requests:
+        cpu: "50m"
+        memory: "100Mi"
+      limits:
+        cpu: "100m"
+        memory: "200Mi"
+  scrapeTargets:
+    - "auth.{{ .Release.Namespace }}.svc.cluster.local:8000"
+    - "ml.{{ .Release.Namespace }}.svc.cluster.local:7070"
+    - "producer.{{ .Release.Namespace }}.svc.cluster.local:5050"
+
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:

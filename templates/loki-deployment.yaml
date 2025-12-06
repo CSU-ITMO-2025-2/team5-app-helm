@@ -1,0 +1,42 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: loki
+          image: {{ .Values.monitoring.loki.image.repository }}:{{ .Values.monitoring.loki.image.tag }}
+          args:
+            - -config.file=/etc/loki/loki.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /etc/loki
+            - name: wal
+              mountPath: /wal
+            - name: loki-storage
+              mountPath: /loki
+          resources: {{- toYaml .Values.monitoring.loki.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: loki-config
+        - name: wal
+          emptyDir: {}
+        - name: loki-storage
+          emptyDir: {}
+{{- end }}
