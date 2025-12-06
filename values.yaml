@@ -29,6 +29,9 @@ monitoring:
     adminPasswordExternalSecret: true
     externalSecretPath: "kv/data/team5/grafana"
     externalSecretProperty: "ADMIN_PASSWORD"
+    ingress:
+      enabled: true
+      host: grafana-team5.kubepractice.ru
     image:
       repository: grafana/grafana
       tag: "10.3.0"
