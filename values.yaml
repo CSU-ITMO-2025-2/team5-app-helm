@@ -2,15 +2,22 @@ replicaCount: 1
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
-    tag: "sha-4589b1c"
+    tag: latest
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
-    tag: "sha-4589b1c"
+    tag: latest
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
-    tag: "sha-4589b1c"
+    tag: latest
+notification:
+  image:
+    repository: ghcr.io/csu-itmo-2025-2/team5-notification
+    tag: latest
+kafka:
+  cluster: my-cluster
+  namespace: kafka
 monitoring:
   enabled: true
   prometheus:
