@@ -2,15 +2,15 @@ replicaCount: 1
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
-    tag: "sha-4589b1c"
+    tag: "sha-af69911"
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
-    tag: "sha-4589b1c"
+    tag: "sha-af69911"
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
-    tag: "sha-4589b1c"
+    tag: "sha-af69911"
 monitoring:
   enabled: true
   prometheus:
@@ -74,7 +74,6 @@ monitoring:
     - "auth.{{ .Release.Namespace }}.svc.cluster.local:8000"
     - "ml.{{ .Release.Namespace }}.svc.cluster.local:7070"
     - "producer.{{ .Release.Namespace }}.svc.cluster.local:5050"
-
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
@@ -125,3 +124,6 @@ tolerations: []
 affinity: {}
 env: {}
 databaseSecretName: "db-credentials"
+notification:
+  image:
+    tag: sha-af69911
