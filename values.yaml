@@ -15,9 +15,6 @@ notification:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-notification
     tag: latest
-# kafka:
-#   cluster: my-cluster
-#   namespace: kafka
 monitoring:
   enabled: true
   prometheus:
@@ -27,8 +24,8 @@ monitoring:
     retention: "12h"
     resources:
       limits:
-        cpu: 250m
-        memory: 512Mi
+        cpu: 150m
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 256Mi
@@ -44,8 +41,8 @@ monitoring:
       tag: "10.3.0"
     resources:
       limits:
-        cpu: 250m
-        memory: 400Mi
+        cpu: 100m
+        memory: 200Mi
       requests:
         cpu: 100m
         memory: 200Mi
@@ -81,7 +78,6 @@ monitoring:
     - "auth.{{ .Release.Namespace }}.svc.cluster.local:8000"
     - "ml.{{ .Release.Namespace }}.svc.cluster.local:7070"
     - "producer.{{ .Release.Namespace }}.svc.cluster.local:5050"
-
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
@@ -118,11 +114,11 @@ ingress:
       secretName: team5-prod-secret
 resources:
   limits:
-    cpu: 250m
-    memory: 256Mi
-  requests:
     cpu: 100m
     memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
 autoscaling:
   enabled: false
   minReplicas: 1
