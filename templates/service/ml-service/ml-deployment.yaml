@@ -20,17 +20,24 @@ spec:
           envFrom:
             - secretRef:
                 name: team5-secret
+          env:
+            - name: ROOT_PATH
+              value: "/ml"
           readinessProbe:
             httpGet:
-              path: /docs
+              path: /ml/health
               port: 7070
-            initialDelaySeconds: 3
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
             periodSeconds: 10
+            failureThreshold: 6
           livenessProbe:
             httpGet:
-              path: /docs
+              path: /ml/health
               port: 7070
-            initialDelaySeconds: 5
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
             periodSeconds: 10
+            failureThreshold: 6
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

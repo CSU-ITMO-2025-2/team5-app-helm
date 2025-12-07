@@ -20,15 +20,18 @@ spec:
           envFrom:
             - secretRef:
                 name: team5-secret
+          env:
+            - name: ROOT_PATH
+              value: "/auth"
           readinessProbe:
             httpGet:
-              path: /docs
+              path: /auth/health
               port: 8000
             initialDelaySeconds: 3
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /docs
+              path: /auth/health
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10

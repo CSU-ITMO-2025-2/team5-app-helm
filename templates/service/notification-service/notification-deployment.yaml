@@ -20,15 +20,18 @@ spec:
           envFrom:
             - secretRef:
                 name: team5-secret
+          env:
+            - name: ROOT_PATH
+              value: "/notification"
           readinessProbe:
             httpGet:
-              path: /docs
+              path: /notification/health
               port: 7071
             initialDelaySeconds: 3
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /docs
+              path: /notification/health
               port: 7071
             initialDelaySeconds: 5
             periodSeconds: 10
