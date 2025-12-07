@@ -2,7 +2,7 @@ replicaCount: 1
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
-    tag: "sha-5a07d11"
+    tag: "sha-c7ac66f"
   resources:
     requests:
       cpu: 300m
@@ -13,7 +13,7 @@ ml:
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
-    tag: "sha-5a07d11"
+    tag: "sha-c7ac66f"
   resources:
     requests:
       cpu: 100m
@@ -24,7 +24,7 @@ auth:
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
-    tag: "sha-5a07d11"
+    tag: "sha-c7ac66f"
   resources:
     requests:
       cpu: 50m
@@ -35,7 +35,7 @@ producer:
 notification:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-notification
-    tag: "sha-5a07d11"
+    tag: "sha-c7ac66f"
   resources:
     requests:
       cpu: 50m
