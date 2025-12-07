@@ -2,19 +2,19 @@ replicaCount: 1
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
-    tag: "sha-94ae055"
+    tag: "sha-5a07d11"
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
-    tag: "sha-94ae055"
+    tag: "sha-5a07d11"
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
-    tag: "sha-94ae055"
+    tag: "sha-5a07d11"
 notification:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-notification
-    tag: "sha-94ae055"
+    tag: "sha-5a07d11"
 monitoring:
   enabled: true
   prometheus:
