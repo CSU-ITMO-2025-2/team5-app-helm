@@ -1,0 +1,38 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: {{ .Values.kafka.clusterName }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  kafka:
+    replicas: {{ .Values.kafka.replicas }}
+    listeners:
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+        authentication:
+          type: scram-sha-512
+    storage:
+      type: ephemeral
+  zookeeper:
+    replicas: {{ .Values.zookeeper.replicas }}
+    storage:
+      type: ephemeral
+  entityOperator:
+    topicOperator:
+      resources:
+        requests:
+          cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.cpu }}
+          memory: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.memory }}
+        limits:
+          cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.cpu }}
+          memory: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.memory }}
+    userOperator:
+      resources:
+        requests:
+          cpu: {{ .Values.kafka.entityOperator.userOperator.resources.requests.cpu }}
+          memory: {{ .Values.kafka.entityOperator.userOperator.resources.requests.memory }}
+        limits:
+          cpu: {{ .Values.kafka.entityOperator.userOperator.resources.limits.cpu }}
+          memory: {{ .Values.kafka.entityOperator.userOperator.resources.limits.memory }}
