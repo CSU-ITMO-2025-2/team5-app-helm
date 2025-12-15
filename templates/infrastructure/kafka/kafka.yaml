@@ -6,6 +6,8 @@ metadata:
 spec:
   kafka:
     replicas: {{ .Values.kafka.replicas }}
+    authorization:
+      type: simple
     listeners:
       - name: plain
         port: 9092
