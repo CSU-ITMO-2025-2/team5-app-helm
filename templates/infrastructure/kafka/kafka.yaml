@@ -40,6 +40,9 @@ spec:
         cpu: {{ .Values.zookeeper.resources.limits.cpu }}
         memory: {{ .Values.zookeeper.resources.limits.memory }}
   entityOperator:
+    template:
+      bootstrap:
+        listener: tls
     topicOperator:
       resources:
         requests:
