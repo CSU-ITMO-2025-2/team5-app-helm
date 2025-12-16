@@ -55,3 +55,4 @@ spec:
         limits:
           cpu: {{ .Values.kafka.entityOperator.userOperator.resources.limits.cpu }}
           memory: {{ .Values.kafka.entityOperator.userOperator.resources.limits.memory }}
+
