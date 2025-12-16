@@ -21,6 +21,12 @@ spec:
         tls: true
         authentication:
           type: scram-sha-512
+      - name: scram
+        port: 9094
+        type: internal
+        tls: true
+        authentication:
+          type: scram-sha-512
     storage:
       type: ephemeral
     resources:
@@ -32,7 +38,7 @@ spec:
         memory: {{ .Values.kafka.resources.limits.memory }}
   entityOperator:
     topicOperator:
-      bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9093
+      bootstrapServers: my-cluster-kafka-bootstrap:9094
       resources:
         requests:
           cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.cpu }}
@@ -41,7 +47,7 @@ spec:
           cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.cpu }}
           memory: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.memory }}
     userOperator:
-      bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9093
+      bootstrapServers: my-cluster-kafka-bootstrap:9094
       resources:
         requests:
           cpu: {{ .Values.kafka.entityOperator.userOperator.resources.requests.cpu }}
