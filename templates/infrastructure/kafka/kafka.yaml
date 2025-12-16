@@ -3,6 +3,8 @@ kind: Kafka
 metadata:
   name: {{ .Values.kafka.clusterName }}
   namespace: {{ .Release.Namespace }}
+  annotations:
+    strimzi.io/kraft: enabled
 spec:
   kafka:
     replicas: {{ .Values.kafka.replicas }}
@@ -28,17 +30,6 @@ spec:
       limits:
         cpu: {{ .Values.kafka.resources.limits.cpu }}
         memory: {{ .Values.kafka.resources.limits.memory }}
-  zookeeper:
-    replicas: {{ .Values.zookeeper.replicas }}
-    storage:
-      type: ephemeral
-    resources:
-      requests:
-        cpu: {{ .Values.zookeeper.resources.requests.cpu }}
-        memory: {{ .Values.zookeeper.resources.requests.memory }}
-      limits:
-        cpu: {{ .Values.zookeeper.resources.limits.cpu }}
-        memory: {{ .Values.zookeeper.resources.limits.memory }}
   entityOperator:
     topicOperator:
       bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9093

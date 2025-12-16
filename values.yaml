@@ -45,7 +45,7 @@ notification:
       memory: 200Mi
 kafka:
   clusterName: my-cluster
-  replicas: 2
+  replicas: 3
   resources:
     requests:
       cpu: 250m
@@ -70,15 +70,6 @@ kafka:
         limits:
           cpu: 100m
           memory: 512Mi
-zookeeper:
-  replicas: 2
-  resources:
-    requests:
-      cpu: 150m
-      memory: 256Mi
-    limits:
-      cpu: 250m
-      memory: 512Mi
 monitoring:
   enabled: true
   prometheus:
