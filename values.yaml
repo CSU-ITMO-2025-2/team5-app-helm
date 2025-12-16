@@ -55,6 +55,7 @@ kafka:
       memory: 1Gi
   entityOperator:
     topicOperator:
+      bootstrapServers: my-cluster-kafka-bootstrap:9094
       resources:
         requests:
           cpu: 50m
@@ -63,6 +64,7 @@ kafka:
           cpu: 100m
           memory: 512Mi 
     userOperator:
+      bootstrapServers: my-cluster-kafka-bootstrap:9094
       resources:
         requests:
           cpu: 50m
