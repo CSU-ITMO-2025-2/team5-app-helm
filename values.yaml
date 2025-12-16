@@ -58,18 +58,18 @@ kafka:
       resources:
         requests:
           cpu: 50m
-          memory: 64Mi
+          memory: 256Mi
         limits:
           cpu: 100m
-          memory: 128Mi
+          memory: 512Mi 
     userOperator:
       resources:
         requests:
           cpu: 50m
-          memory: 126Mi
+          memory: 256Mi
         limits:
           cpu: 100m
-          memory: 256Mi
+          memory: 512Mi
 zookeeper:
   replicas: 2
   resources:
