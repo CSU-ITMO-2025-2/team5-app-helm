@@ -20,11 +20,13 @@ spec:
         authentication:
           type: scram-sha-512
       - name: replication
-        port: 9094
+        port: 9091
         type: internal
         tls: true
         authentication:
           type: tls
+    config:
+      inter.broker.listener.name: replication
     storage:
       type: ephemeral
   zookeeper:
