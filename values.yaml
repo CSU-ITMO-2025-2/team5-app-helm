@@ -5,22 +5,22 @@ ml:
     tag: "sha-c7ac66f"
   resources:
     requests:
-      cpu: 300m
-      memory: 2200Mi
+      cpu: 100m
+      memory: 128Mi
     limits:
-      cpu: 600m
-      memory: 2560Mi
+      cpu: 150m
+      memory: 256Mi
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
     tag: "sha-c7ac66f"
   resources:
     requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
       cpu: 100m
       memory: 128Mi
-    limits:
-      cpu: 200m
-      memory: 256Mi
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer

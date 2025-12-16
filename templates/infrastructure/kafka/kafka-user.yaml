@@ -1,0 +1,68 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: producer-user
+  namespace: team5-ns
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: raw_reviews
+          patternType: literal
+        operations: [Write, Create, Describe]
+        host: "*"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: ml-user
+  namespace: team5-ns
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource: { type: topic, name: raw_reviews, patternType: literal }
+        operations: [Read, Describe]
+        host: "*"
+      - resource: { type: topic, name: processed_reviews, patternType: literal }
+        operations: [Write, Create, Describe]
+        host: "*"
+      - resource: { type: group, name: ml-service-group, patternType: literal }
+        operations: [Read]
+        host: "*"
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: notification-user
+  namespace: team5-ns
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: processed_reviews
+          patternType: literal
+        operations: [Read, Describe]
+        host: "*"
+      - resource:
+          type: group
+          name: notification-group
+          patternType: literal
+        operations: [Read]
+        host: "*"
