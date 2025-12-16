@@ -8,7 +8,7 @@ ml:
       cpu: 50m
       memory: 128Mi
     limits:
-      cpu: 100m
+      cpu: 50m
       memory: 256Mi
 auth:
   image:
@@ -19,7 +19,7 @@ auth:
       cpu: 50m
       memory: 64Mi
     limits:
-      cpu: 100m
+      cpu: 50m
       memory: 128Mi
 producer:
   image:
@@ -41,7 +41,7 @@ notification:
       cpu: 50m
       memory: 100Mi
     limits:
-      cpu: 100m
+      cpu: 50m
       memory: 200Mi
 kafka:
   clusterName: my-cluster
@@ -50,19 +50,19 @@ kafka:
     topicOperator:
       resources:
         requests:
-          cpu: 100m
-          memory: 128Mi
+          cpu: 50m
+          memory: 64Mi
         limits:
           cpu: 100m
-          memory: 256Mi
+          memory: 128Mi
     userOperator:
       resources:
         requests:
-          cpu: 100m
-          memory: 256Mi
+          cpu: 50m
+          memory: 126Mi
         limits:
           cpu: 100m
-          memory: 512Mi
+          memory: 256Mi
 zookeeper:
   replicas: 2
 monitoring:
@@ -94,8 +94,8 @@ monitoring:
         cpu: 50m
         memory: 100Mi
       limits:
-        cpu: 100m
-        memory: 200Mi
+        cpu: 50m
+        memory: 100Mi
   loki:
     image:
       repository: grafana/loki
@@ -112,7 +112,7 @@ monitoring:
         memory: "100Mi"
       limits:
         cpu: "100m"
-        memory: "200Mi"
+        memory: "100Mi"
   promtail:
     image:
       repository: grafana/promtail
