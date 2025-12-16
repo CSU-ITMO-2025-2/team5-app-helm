@@ -21,10 +21,24 @@ spec:
           type: scram-sha-512
     storage:
       type: ephemeral
+    resources:
+      requests:
+        cpu: {{ .Values.kafka.resources.requests.cpu }}
+        memory: {{ .Values.kafka.resources.requests.memory }}
+      limits:
+        cpu: {{ .Values.kafka.resources.limits.cpu }}
+        memory: {{ .Values.kafka.resources.limits.memory }}
   zookeeper:
     replicas: {{ .Values.zookeeper.replicas }}
     storage:
       type: ephemeral
+    resources:
+      requests:
+        cpu: {{ .Values.zookeeper.resources.requests.cpu }}
+        memory: {{ .Values.zookeeper.resources.requests.memory }}
+      limits:
+        cpu: {{ .Values.zookeeper.resources.limits.cpu }}
+        memory: {{ .Values.zookeeper.resources.limits.memory }}
   entityOperator:
     topicOperator:
       resources:
