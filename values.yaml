@@ -30,7 +30,7 @@ producer:
       cpu: 50m
       memory: 100Mi
     limits:
-      cpu: 150m
+      cpu: 100m
       memory: 200Mi
 notification:
   image:
@@ -41,7 +41,7 @@ notification:
       cpu: 50m
       memory: 100Mi
     limits:
-      cpu: 150m
+      cpu: 100m
       memory: 200Mi
 kafka:
   clusterName: my-cluster
@@ -51,17 +51,17 @@ kafka:
       resources:
         requests:
           cpu: 100m
-          memory: 256Mi
+          memory: 128Mi
         limits:
-          cpu: 200m
-          memory: 512Mi
+          cpu: 100m
+          memory: 256Mi
     userOperator:
       resources:
         requests:
           cpu: 100m
           memory: 256Mi
         limits:
-          cpu: 200m
+          cpu: 100m
           memory: 512Mi
 zookeeper:
   replicas: 2
@@ -74,7 +74,7 @@ monitoring:
     retention: "12h"
     resources:
       limits:
-        cpu: 100m
+        cpu: 50m
         memory: 128Mi
       requests:
         cpu: 100m
