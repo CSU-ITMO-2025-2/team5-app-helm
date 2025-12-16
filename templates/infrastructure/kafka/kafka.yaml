@@ -7,7 +7,6 @@ metadata:
     strimzi.io/kraft: enabled
 spec:
   kafka:
-    replicas: {{ .Values.kafka.replicas }}
     authorization:
       type: simple
     listeners:
@@ -27,18 +26,9 @@ spec:
         tls: true
         authentication:
           type: scram-sha-512
-    storage:
-      type: ephemeral
-    resources:
-      requests:
-        cpu: {{ .Values.kafka.resources.requests.cpu }}
-        memory: {{ .Values.kafka.resources.requests.memory }}
-      limits:
-        cpu: {{ .Values.kafka.resources.limits.cpu }}
-        memory: {{ .Values.kafka.resources.limits.memory }}
   entityOperator:
     topicOperator:
-      bootstrapServers: my-cluster-kafka-bootstrap:9094
+      bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9094
       resources:
         requests:
           cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.cpu }}
@@ -47,7 +37,7 @@ spec:
           cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.cpu }}
           memory: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.memory }}
     userOperator:
-      bootstrapServers: my-cluster-kafka-bootstrap:9094
+      bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9094
       resources:
         requests:
           cpu: {{ .Values.kafka.entityOperator.userOperator.resources.requests.cpu }}
@@ -56,3 +46,25 @@ spec:
           cpu: {{ .Values.kafka.entityOperator.userOperator.resources.limits.cpu }}
           memory: {{ .Values.kafka.entityOperator.userOperator.resources.limits.memory }}
 
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: broker
+  namespace: {{ .Release.Namespace }}
+  labels:
+    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+spec:
+  replicas: {{ .Values.kafka.replicas }}
+  roles:
+    - broker
+    - controller
+  storage:
+    type: ephemeral
+  resources:
+    requests:
+      cpu: {{ .Values.kafka.resources.requests.cpu }}
+      memory: {{ .Values.kafka.resources.requests.memory }}
+    limits:
+      cpu: {{ .Values.kafka.resources.limits.cpu }}
+      memory: {{ .Values.kafka.resources.limits.memory }}
