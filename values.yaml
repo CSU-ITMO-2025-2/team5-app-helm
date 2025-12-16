@@ -5,10 +5,10 @@ ml:
     tag: "sha-c7ac66f"
   resources:
     requests:
-      cpu: 100m
+      cpu: 50m
       memory: 128Mi
     limits:
-      cpu: 150m
+      cpu: 100m
       memory: 256Mi
 auth:
   image:
@@ -74,8 +74,8 @@ monitoring:
     retention: "12h"
     resources:
       limits:
-        cpu: 150m
-        memory: 256Mi
+        cpu: 100m
+        memory: 128Mi
       requests:
         cpu: 100m
         memory: 256Mi
@@ -91,8 +91,8 @@ monitoring:
       tag: "10.3.0"
     resources:
       limits:
-        cpu: 100m
-        memory: 200Mi
+        cpu: 50m
+        memory: 100Mi
       requests:
         cpu: 100m
         memory: 200Mi
@@ -108,11 +108,11 @@ monitoring:
       fsGroup: 0
     resources:
       requests:
+        cpu: "50m"
+        memory: "100Mi"
+      limits:
         cpu: "100m"
         memory: "200Mi"
-      limits:
-        cpu: "200m"
-        memory: "400Mi"
   promtail:
     image:
       repository: grafana/promtail
@@ -172,7 +172,7 @@ resources:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 nodeSelector: {}
