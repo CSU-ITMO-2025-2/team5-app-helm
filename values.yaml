@@ -73,10 +73,10 @@ monitoring:
       tag: "v2.46.0"
     retention: "12h"
     resources:
-      limits:
+      requests:
         cpu: 50m
         memory: 128Mi
-      requests:
+      limits:
         cpu: 100m
         memory: 256Mi
   grafana:
@@ -90,10 +90,10 @@ monitoring:
       repository: grafana/grafana
       tag: "10.3.0"
     resources:
-      limits:
+      requests:
         cpu: 50m
         memory: 100Mi
-      requests:
+      limits:
         cpu: 100m
         memory: 200Mi
   loki:
