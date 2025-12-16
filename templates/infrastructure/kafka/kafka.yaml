@@ -40,10 +40,8 @@ spec:
         cpu: {{ .Values.zookeeper.resources.limits.cpu }}
         memory: {{ .Values.zookeeper.resources.limits.memory }}
   entityOperator:
-    template:
-      bootstrap:
-        listener: tls
     topicOperator:
+      bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9093
       resources:
         requests:
           cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.cpu }}
@@ -52,6 +50,7 @@ spec:
           cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.cpu }}
           memory: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.memory }}
     userOperator:
+      bootstrapServers: {{ .Values.kafka.clusterName }}-kafka-bootstrap:9093
       resources:
         requests:
           cpu: {{ .Values.kafka.entityOperator.userOperator.resources.requests.cpu }}
