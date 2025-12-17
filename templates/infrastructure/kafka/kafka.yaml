@@ -64,6 +64,10 @@ spec:
     authorization:
       type: simple
     listeners:
+      - name: replication
+        port: 9090
+        type: internal
+        tls: true
       - name: plain
         port: 9092
         type: internal
