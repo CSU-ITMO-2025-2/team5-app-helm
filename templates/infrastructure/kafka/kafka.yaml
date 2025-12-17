@@ -4,7 +4,7 @@ metadata:
   name: controller
   namespace: {{ .Release.Namespace }}
   labels:
-    strimzi.io/cluster: "{{ .Values.kafka.clusterName }}"
+    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
 spec:
   replicas: 3
   roles:
@@ -30,7 +30,7 @@ metadata:
   name: broker
   namespace: {{ .Release.Namespace }}
   labels:
-    strimzi.io/cluster: "{{ .Values.kafka.clusterName }}"
+    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
 spec:
   replicas: 3
   roles:
@@ -53,7 +53,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
-  name: "{{ .Values.kafka.clusterName }}"
+  name: {{ .Values.kafka.clusterName }}
   namespace: {{ .Release.Namespace }}
   annotations:
     strimzi.io/kraft: enabled
@@ -64,18 +64,18 @@ spec:
     authorization:
       type: simple
     listeners:
+      - name: internal
+        port: 9090
+        type: internal
+        tls: true
+        authentication:
+          type: scram-sha-512
       - name: plain
         port: 9092
         type: internal
         tls: false
       - name: tls
         port: 9093
-        type: internal
-        tls: true
-        authentication:
-          type: scram-sha-512
-      - name: internal
-        port: 9090
         type: internal
         tls: true
         authentication:
