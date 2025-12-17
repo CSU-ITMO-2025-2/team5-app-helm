@@ -4,7 +4,7 @@ metadata:
   name: controller
   namespace: team5-ns  # пока хардкод проверить ошибку
   labels:
-    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+    strimzi.io/cluster: "{{ .Values.kafka.clusterName }}"
 spec:
   replicas: 3
   roles:
@@ -30,7 +30,7 @@ metadata:
   name: broker
   namespace: team5-ns  # пока хардкод проверить ошибку
   labels:
-    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+    strimzi.io/cluster: "{{ .Values.kafka.clusterName }}"
 spec:
   replicas: 3
   roles:
@@ -53,7 +53,7 @@ spec:
 apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
-  name: {{ .Values.kafka.clusterName }}
+  name: "{{ .Values.kafka.clusterName }}"
   namespace: team5-ns  # пока хардкод проверить ошибку
   annotations:
     strimzi.io/kraft: enabled
@@ -75,11 +75,11 @@ spec:
         authentication:
           type: scram-sha-512
       - name: internal
-          port: 9090
-          type: internal
-          tls: true
-          authentication:
-            type: scram-sha-512
+        port: 9090
+        type: internal
+        tls: true
+        authentication:
+          type: scram-sha-512
   entityOperator:
     topicOperator:
       resources:
