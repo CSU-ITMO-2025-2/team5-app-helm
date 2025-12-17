@@ -57,7 +57,7 @@ spec:
       type: simple
     listeners:
       - name: kraft # Уникальное имя для KRaft
-        port: 9091
+        port: 9094
         type: internal
         tls: true
       - name: plain
