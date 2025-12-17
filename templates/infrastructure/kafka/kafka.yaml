@@ -1,4 +1,5 @@
-apiVersion: kafka.strimzi.io/v1
+# [jg:person_17] нод для роли 'controller'
+apiVersion: kafka.strimzi.io/v1beta2 # <-- ПРАВИЛЬНАЯ ВЕРСИЯ API
 kind: KafkaNodePool
 metadata:
   name: controller
@@ -10,11 +11,7 @@ spec:
   roles:
     - controller
   storage:
-    type: jbod
-    volumes:
-      - id: 0
-        type: ephemeral
-        kraftMetadata: shared
+    type: ephemeral # <-- ВАШ ВАРИАНТ ХРАНИЛИЩА
   resources:
     requests:
       cpu: {{ .Values.kafka.resources.requests.cpu }}
@@ -24,7 +21,8 @@ spec:
       memory: {{ .Values.kafka.resources.limits.memory }}
 ---
 
-apiVersion: kafka.strimzi.io/v1
+# Пул нод для роли 'broker'
+apiVersion: kafka.strimzi.io/v1beta2 # <-- ПРАВИЛЬНАЯ ВЕРСИЯ API
 kind: KafkaNodePool
 metadata:
   name: broker
@@ -36,11 +34,7 @@ spec:
   roles:
     - broker
   storage:
-    type: jbod
-    volumes:
-      - id: 0
-        type: ephemeral
-        kraftMetadata: shared
+    type: ephemeral # <-- ВАШ ВАРИАНТ ХРАНИЛИЩА
   resources:
     requests:
       cpu: {{ .Values.kafka.resources.requests.cpu }}
@@ -50,22 +44,20 @@ spec:
       memory: {{ .Values.kafka.resources.limits.memory }}
 ---
 
-apiVersion: kafka.strimzi.io/v1
+# Основной ресурс Kafka
+apiVersion: kafka.strimzi.io/v1beta2 # <-- ПРАВИЛЬНАЯ ВЕРСИЯ API
 kind: Kafka
 metadata:
   name: {{ .Values.kafka.clusterName }}
   namespace: {{ .Release.Namespace }}
-  annotations:
-    strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: 4.1.1
-    metadataVersion: 4.1-IV1
+    version: 3.7.0 # <-- РЕАЛЬНАЯ ВЕРСИЯ KAFKA
     authorization:
       type: simple
     listeners:
-      - name: kraft
-        port: 9094
+      - name: kraft # Уникальное имя для KRaft
+        port: 9091
         type: internal
         tls: true
       - name: plain
@@ -79,19 +71,5 @@ spec:
         authentication:
           type: scram-sha-512
   entityOperator:
-    topicOperator:
-      resources:
-        requests:
-          cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.cpu }}
-          memory: {{ .Values.kafka.entityOperator.topicOperator.resources.requests.memory }}
-        limits:
-          cpu: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.cpu }}
-          memory: {{ .Values.kafka.entityOperator.topicOperator.resources.limits.memory }}
-    userOperator:
-      resources:
-        requests:
-          cpu: {{ .Values.kafka.entityOperator.userOperator.resources.requests.cpu }}
-          memory: {{ .Values.kafka.entityOperator.userOperator.resources.requests.memory }}
-        limits:
-          cpu: {{ .Values.kafka.entityOperator.userOperator.resources.limits.cpu }}
-          memory: {{ .Values.kafka.entityOperator.userOperator.resources.limits.memory }}
+    topicOperator: {}
+    userOperator: {}
