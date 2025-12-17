@@ -7,6 +7,8 @@ metadata:
     strimzi.io/kraft: enabled
 spec:
   kafka:
+    version: 4.1.1
+    metadataVersion: 4.1-IV1
     authorization:
       type: simple
     listeners:
@@ -47,20 +49,70 @@ spec:
           memory: {{ .Values.kafka.entityOperator.userOperator.resources.limits.memory }}
 
 ---
-apiVersion: kafka.strimzi.io/v1beta2
+# apiVersion: kafka.strimzi.io/v1beta2
+# kind: KafkaNodePool
+# metadata:
+#   name: broker
+#   namespace: {{ .Release.Namespace }}
+#   labels:
+#     strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+# spec:
+#   replicas: {{ .Values.kafka.replicas }}
+#   roles:
+#     - broker
+#     - controller
+#   storage:
+#     type: ephemeral
+#   resources:
+#     requests:
+#       cpu: {{ .Values.kafka.resources.requests.cpu }}
+#       memory: {{ .Values.kafka.resources.requests.memory }}
+#     limits:
+#       cpu: {{ .Values.kafka.resources.limits.cpu }}
+#       memory: {{ .Values.kafka.resources.limits.memory }}
+---
+
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: controller
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  replicas: 2
+  roles:
+    - controller
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        type: ephemeral
+        kraftMetadata: shared
+  resources:
+    requests:
+      cpu: {{ .Values.kafka.resources.requests.cpu }}
+      memory: {{ .Values.kafka.resources.requests.memory }}
+    limits:
+      cpu: {{ .Values.kafka.resources.limits.cpu }}
+      memory: {{ .Values.kafka.resources.limits.memory }}
+---
+
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: broker
-  namespace: {{ .Release.Namespace }}
   labels:
-    strimzi.io/cluster: {{ .Values.kafka.clusterName }}
+    strimzi.io/cluster: my-cluster
 spec:
-  replicas: {{ .Values.kafka.replicas }}
+  replicas: 2
   roles:
     - broker
-    - controller
   storage:
-    type: ephemeral
+    type: jbod
+    volumes:
+      - id: 0
+        type: ephemeral
+        kraftMetadata: shared
   resources:
     requests:
       cpu: {{ .Values.kafka.resources.requests.cpu }}
