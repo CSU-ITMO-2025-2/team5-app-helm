@@ -65,7 +65,7 @@ spec:
       type: simple
     listeners:
       - name: kraft
-        port: 9091
+        port: 9094
         type: internal
         tls: true
       - name: plain
