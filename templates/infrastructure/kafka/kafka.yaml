@@ -2,6 +2,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: controller
+  namespace: team5-ns  # пока хардкод проверить ошибку
   labels:
     strimzi.io/cluster: {{ .Values.kafka.clusterName }}
 spec:
@@ -27,6 +28,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: broker
+  namespace: team5-ns  # пока хардкод проверить ошибку
   labels:
     strimzi.io/cluster: {{ .Values.kafka.clusterName }}
 spec:
@@ -52,7 +54,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
   name: {{ .Values.kafka.clusterName }}
-  namespace: {{ .Release.Namespace }}
+  namespace: team5-ns  # пока хардкод проверить ошибку
   annotations:
     strimzi.io/kraft: enabled
 spec:
@@ -72,6 +74,12 @@ spec:
         tls: true
         authentication:
           type: scram-sha-512
+      - name: internal
+          port: 9090
+          type: internal
+          tls: true
+          authentication:
+            type: scram-sha-512
   entityOperator:
     topicOperator:
       resources:
