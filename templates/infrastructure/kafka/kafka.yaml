@@ -2,7 +2,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: controller
-  namespace: team5-ns  # пока хардкод проверить ошибку
+  namespace: {{ .Release.Namespace }}
   labels:
     strimzi.io/cluster: "{{ .Values.kafka.clusterName }}"
 spec:
@@ -28,7 +28,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: broker
-  namespace: team5-ns  # пока хардкод проверить ошибку
+  namespace: {{ .Release.Namespace }}
   labels:
     strimzi.io/cluster: "{{ .Values.kafka.clusterName }}"
 spec:
@@ -54,7 +54,7 @@ apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
   name: "{{ .Values.kafka.clusterName }}"
-  namespace: team5-ns  # пока хардкод проверить ошибку
+  namespace: {{ .Release.Namespace }}
   annotations:
     strimzi.io/kraft: enabled
 spec:
