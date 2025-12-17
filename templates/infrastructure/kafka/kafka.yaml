@@ -65,7 +65,7 @@ spec:
       type: simple
     listeners:
       - name: replication
-        port: 9090
+        port: 9094
         type: internal
         tls: true
       - name: plain
@@ -74,7 +74,7 @@ spec:
         tls: false
       - name: tls
         port: 9093
-        type: internal
+        type: loadbalancer
         tls: true
         authentication:
           type: scram-sha-512
