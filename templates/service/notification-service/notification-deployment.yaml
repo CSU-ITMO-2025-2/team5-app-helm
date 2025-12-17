@@ -27,13 +27,13 @@ spec:
             httpGet:
               path: /notification/health
               port: 7071
-            initialDelaySeconds: 20
+            initialDelaySeconds: 40
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /notification/health
               port: 7071
-            initialDelaySeconds: 20
+            initialDelaySeconds: 40
             periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
