@@ -38,11 +38,11 @@ notification:
     tag: "latest"
   resources:
     requests:
-      cpu: 100m
-      memory: 100Mi
+      cpu: 150m
+      memory: 256Mi
     limits:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 200m
+      memory: 512Mi
 kafka:
   clusterName: my-cluster
   replicas: 3
