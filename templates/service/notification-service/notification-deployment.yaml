@@ -36,4 +36,5 @@ spec:
             initialDelaySeconds: 40
             periodSeconds: 10
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.notification.resources | nindent 12 }}
+
