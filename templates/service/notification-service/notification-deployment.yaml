@@ -30,6 +30,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.kafka.credentialsSecretName }} 
                   key: {{ .Values.kafka.users.notification.secretKey }}
+            - name: KAFKA_TOPIC_PROCESSED
+              value: {{ .Values.kafka.topics.processedReviews.name }}
           readinessProbe:
             httpGet:
               path: /notification/health

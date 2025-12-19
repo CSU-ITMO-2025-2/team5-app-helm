@@ -30,6 +30,10 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.kafka.credentialsSecretName }} 
                   key: {{ .Values.kafka.users.ml.secretKey }}
+            - name: KAFKA_TOPIC_RAW
+              value: {{ .Values.kafka.topics.rawReviews.name }}
+            - name: KAFKA_TOPIC_PROCESSED
+              value: {{ .Values.kafka.topics.processedReviews.name }}
           readinessProbe:
             httpGet:
               path: /ml/health
