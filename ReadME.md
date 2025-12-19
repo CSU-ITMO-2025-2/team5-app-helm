@@ -62,3 +62,4 @@ EOF
 ```
 
 Жизнь удалась
+trigger reload
