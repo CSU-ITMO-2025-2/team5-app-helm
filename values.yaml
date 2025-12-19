@@ -43,6 +43,17 @@ notification:
     limits:
       cpu: 200m
       memory: 512Mi
+ui:
+  image:
+    repository: ghcr.io/csu-itmo-2025-2/team5-ui
+    tag: "sha-4532b41"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
 kafka:
   clusterName: my-cluster
   replicas: 3
