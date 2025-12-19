@@ -44,32 +44,29 @@ notification:
       cpu: 200m
       memory: 512Mi
 kafka:
-  clusterName: my-cluster
-  replicas: 3
-  resources:
-    requests:
-      cpu: 250m
-      memory: 512Mi
-    limits:
-      cpu: 500m
-      memory: 1Gi
-  entityOperator:
-    topicOperator:
-      resources:
-        requests:
-          cpu: 50m
-          memory: 256Mi
-        limits:
-          cpu: 100m
-          memory: 512Mi
-    userOperator:
-      resources:
-        requests:
-          cpu: 50m
-          memory: 256Mi
-        limits:
-          cpu: 100m
-          memory: 512Mi
+  bootstrapServers: "my-cluster-kafka-bootstrap.{{ .Release.Namespace }}.svc.cluster.local:9092"
+  credentialsSecretName: "team5-secret"
+  users:
+    producer:
+      username: "producer-user"
+      secretKey: "KAFKA_PRODUCER_PASSWORD"
+    ml:
+      username: "ml-user"
+      secretKey: "KAFKA_ML_PASSWORD"
+    notification:
+      username: "notification-user"
+      secretKey: "KAFKA_NOTIFICATION_PASSWORD"
+  topics:
+    rawReviews:
+      name: "raw-reviews"
+      retentionMs: "604800000"
+      segmentBytes: "1073741824"
+    processedReviews:
+      name: "processed-reviews"
+      retentionMs: "604800000"
+  groups:
+    mlService: "ml-service-group"
+    notificationService: "notification-group"
 monitoring:
   enabled: true
   prometheus:

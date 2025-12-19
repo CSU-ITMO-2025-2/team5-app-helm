@@ -1,0 +1,92 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: {{ .Values.kafka.users.producer.username }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.kafka.credentialsSecretName }}
+          key: {{ .Values.kafka.users.producer.secretKey }}
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: {{ .Values.kafka.topics.rawReviews.name }}
+          patternType: literal
+        operations: [Write, Create, Describe]
+        host: "*"
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: {{ .Values.kafka.users.ml.username }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.kafka.credentialsSecretName }}
+          key: {{ .Values.kafka.users.ml.secretKey }}
+  authorization:
+    type: simple
+    acls:
+      - resource: 
+          type: topic 
+          name: {{ .Values.kafka.topics.rawReviews.name }}
+          patternType: literal
+        operations: [Read, Describe]
+        host: "*"
+      - resource: 
+          type: topic
+          name: {{ .Values.kafka.topics.processedReviews.name }}
+          patternType: literal
+        operations: [Write, Create, Describe]
+        host: "*"
+      - resource:
+          type: group
+          name: {{ .Values.kafka.groups.mlService }}
+          patternType: literal
+        operations: [Read]
+        host: "*"
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: {{ .Values.kafka.users.notification.username }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: scram-sha-512
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.kafka.credentialsSecretName }}
+          key: {{ .Values.kafka.users.notification.secretKey }}
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: {{ .Values.kafka.topics.processedReviews.name }}
+          patternType: literal
+        operations: [Read, Describe]
+        host: "*"
+      - resource:
+          type: group
+          name: {{ .Values.kafka.groups.notificationService }}
+          patternType: literal
+        operations: [Read]
+        host: "*"
