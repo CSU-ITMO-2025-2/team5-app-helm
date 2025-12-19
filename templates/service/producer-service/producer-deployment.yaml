@@ -30,6 +30,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.kafka.credentialsSecretName }} 
                   key: {{ .Values.kafka.users.producer.secretKey }}
+            - name: KAFKA_TOPIC_RAW
+              value: {{ .Values.kafka.topics.rawReviews.name }}
           readinessProbe:
             httpGet:
               path: /producer/health
