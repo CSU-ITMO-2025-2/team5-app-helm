@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-service
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: ui-service
+  template:
+    metadata:
+      labels:
+        app: ui-service
+    spec:
+      containers:
+        - name: ui-service
+          image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: team5-secret
+          env:
+            - name: AUTH_SERVICE_URL
+              value: "https://team5.kubepractice.ru/auth"
+            - name: PRODUCER_SERVICE_URL
+              value: "https://team5.kubepractice.ru/producer"
+            - name: ML_SERVICE_URL
+              value: "https://team5.kubepractice.ru/ml"
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.ui.resources | nindent 12 }}

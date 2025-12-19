@@ -2,7 +2,7 @@ replicaCount: 1
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
-    tag: "latest"
+    tag: "sha-6c43c66"
   resources:
     requests:
       cpu: 50m
@@ -13,7 +13,7 @@ ml:
 auth:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-auth
-    tag: "latest"
+    tag: "sha-6c43c66"
   resources:
     requests:
       cpu: 50m
@@ -24,7 +24,7 @@ auth:
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
-    tag: "latest"
+    tag: "sha-6c43c66"
   resources:
     requests:
       cpu: 50m
@@ -35,7 +35,7 @@ producer:
 notification:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-notification
-    tag: "latest"
+    tag: "sha-6c43c66"
   resources:
     requests:
       cpu: 150m
@@ -43,6 +43,17 @@ notification:
     limits:
       cpu: 200m
       memory: 512Mi
+ui:
+  image:
+    repository: ghcr.io/csu-itmo-2025-2/team5-ui
+    tag: "sha-6c43c66"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
 kafka:
   bootstrapServers: "my-cluster-kafka-bootstrap.{{ .Release.Namespace }}.svc.cluster.local:9092"
   credentialsSecretName: "team5-secret"
