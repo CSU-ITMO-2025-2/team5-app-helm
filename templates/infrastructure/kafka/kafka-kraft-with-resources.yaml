@@ -20,7 +20,7 @@ spec:
     volumes:
       - id: 0
         type: ephemeral
-        kraftMetadata: local
+        kraftMetadata: shared
 ---
 
 apiVersion: kafka.strimzi.io/v1
@@ -45,7 +45,7 @@ spec:
     volumes:
       - id: 0
         type: ephemeral
-        kraftMetadata: local
+        kraftMetadata: shared
 ---
 
 apiVersion: kafka.strimzi.io/v1
