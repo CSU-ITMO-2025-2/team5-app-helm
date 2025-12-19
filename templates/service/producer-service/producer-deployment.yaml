@@ -23,6 +23,13 @@ spec:
           env:
             - name: ROOT_PATH
               value: "/producer"
+            - name: KAFKA_USERNAME 
+              value: {{ .Values.kafka.users.producer.username | quote }}
+            - name: KAFKA_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.kafka.credentialsSecretName }} 
+                  key: {{ .Values.kafka.users.producer.secretKey }}
           readinessProbe:
             httpGet:
               path: /producer/health

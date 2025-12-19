@@ -23,6 +23,13 @@ spec:
           env:
             - name: ROOT_PATH
               value: "/ml"
+            - name: KAFKA_USERNAME 
+              value: {{ .Values.kafka.users.ml.username | quote }}
+            - name: KAFKA_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.kafka.credentialsSecretName }} 
+                  key: {{ .Values.kafka.users.ml.secretKey }}
           readinessProbe:
             httpGet:
               path: /ml/health
