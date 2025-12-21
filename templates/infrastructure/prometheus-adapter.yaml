@@ -74,7 +74,7 @@ spec:
             - --prometheus-url=http://prometheus.{{ .Release.Namespace }}.svc.cluster.local:9090/
             - --metrics-relist-interval=1m
             - --v=4
-            - --port=8080
+            - --secure-port=8080
             - --external-only
             - --external-labels=namespace={{ .Release.Namespace }}
           volumeMounts:
