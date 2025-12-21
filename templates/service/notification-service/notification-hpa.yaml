@@ -26,6 +26,7 @@ spec:
             matchLabels:
               consumer_group: "notification-group"
               topic: "processed-reviews"
+              namespace: {{ .Release.Namespace }}
         target:
           type: AverageValue
           averageValue: "20"

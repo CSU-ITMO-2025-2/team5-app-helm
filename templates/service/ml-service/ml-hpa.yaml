@@ -32,6 +32,7 @@ spec:
             matchLabels:
               consumer_group: "ml-service-group"
               topic: "raw-reviews"
+              namespace: {{ .Release.Namespace }}
         target:
           type: AverageValue
           averageValue: "50"
