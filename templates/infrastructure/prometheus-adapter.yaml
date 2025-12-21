@@ -67,7 +67,7 @@ spec:
       serviceAccountName: prometheus-adapter
       containers:
         - name: prometheus-adapter
-          image: {{ .Values.monitoring.prometheus.image.repository }}:{{ .Values.monitoring.prometheus.image.tag }}
+          image: willdockerhub/prometheus-adapter:v0.9.1
           args:
             - --config=/etc/adapter/config.yaml
             - --logtostderr=true
