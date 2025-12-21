@@ -1,0 +1,23 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: notification-service-keda
+  labels:
+    app: notification-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: notification-service
+  minReplicaCount: {{ .Values.notification.keda.minReplicas }}
+  maxReplicaCount: {{ .Values.notification.keda.maxReplicas }}
+  pollingInterval: {{ .Values.notification.keda.pollingInterval }}
+  cooldownPeriod: {{ .Values.notification.keda.cooldownPeriod }}
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: {{ .Values.notification.keda.bootstrapServers | quote }}
+        topic: {{ .Values.notification.keda.topic | quote }}
+        consumerGroup: {{ .Values.notification.keda.consumerGroup | quote }}
+        lagThreshold: "{{ .Values.notification.keda.lagThreshold }}"
+        activationLagThreshold: "1"

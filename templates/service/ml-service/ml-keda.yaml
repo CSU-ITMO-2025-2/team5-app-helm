@@ -1,0 +1,23 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: ml-service-keda
+  labels:
+    app: ml-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ml-service
+  minReplicaCount: {{ .Values.ml.keda.minReplicas }}
+  maxReplicaCount: {{ .Values.ml.keda.maxReplicas }}
+  pollingInterval: {{ .Values.ml.keda.pollingInterval }}
+  cooldownPeriod: {{ .Values.ml.keda.cooldownPeriod }}
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: {{ .Values.ml.keda.bootstrapServers | quote }}
+        topic: {{ .Values.ml.keda.topic | quote }}
+        consumerGroup: {{ .Values.ml.keda.consumerGroup | quote }}
+        lagThreshold: "{{ .Values.ml.keda.lagThreshold }}"
+        activationLagThreshold: "1"

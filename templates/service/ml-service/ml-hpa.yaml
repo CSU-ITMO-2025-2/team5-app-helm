@@ -1,3 +1,4 @@
+{{- if not .Values.ml.keda.enabled }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -24,16 +25,6 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
-    - type: External
-      external:
-        metric:
-          name: kafka_consumer_lag
-          selector:
-            matchLabels:
-              namespace: {{ .Release.Namespace }}
-        target:
-          type: AverageValue
-          averageValue: "100"
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 600
@@ -51,3 +42,4 @@ spec:
           value: 3
           periodSeconds: 60
       selectPolicy: Min
+{{- end }}
