@@ -7,7 +7,7 @@ metadata:
 data:
   config.yaml: |
     rules:
-    - seriesQuery: 'kafka_topic_partition_current_offset{namespace!="",pod!=""}'
+    - seriesQuery: 'kafka_topic_partition_current_offset{namespace="{{ .Release.Namespace }}",pod!=""}'
       resources:
         overrides:
           namespace: {resource: "namespace"}
@@ -17,7 +17,7 @@ data:
         as: "${1}_partition_${2}_current_offset"
       metricsQuery: 'sum by (<<.GroupBy>>) (kafka_topic_partition_current_offset{<<.LabelMatchers>>})'
     
-    - seriesQuery: 'kafka_topic_partition_in_sync_replica{namespace!="",pod!=""}'
+    - seriesQuery: 'kafka_topic_partition_in_sync_replica{namespace="{{ .Release.Namespace }}",pod!=""}'
       resources:
         overrides:
           namespace: {resource: "namespace"}
@@ -27,7 +27,7 @@ data:
         as: "${1}_partition_${2}_in_sync_replica"
       metricsQuery: 'sum by (<<.GroupBy>>) (kafka_topic_partition_in_sync_replica{<<.LabelMatchers>>})'
     
-    - seriesQuery: 'kafka_consumer_lag{namespace!="",pod!=""}'
+    - seriesQuery: 'kafka_consumer_lag{namespace="{{ .Release.Namespace }}",pod!=""}'
       resources:
         overrides:
           namespace: {resource: "namespace"}
@@ -37,7 +37,7 @@ data:
         as: "kafka_consumer_lag"
       metricsQuery: 'sum by (<<.GroupBy>>) (kafka_consumer_lag{<<.LabelMatchers>>})'
     
-    - seriesQuery: 'kafka_consumer_offset{namespace!="",pod!=""}'
+    - seriesQuery: 'kafka_consumer_offset{namespace="{{ .Release.Namespace }}",pod!=""}'
       resources:
         overrides:
           namespace: {resource: "namespace"}
@@ -47,7 +47,7 @@ data:
         as: "kafka_consumer_offset"
       metricsQuery: 'sum by (<<.GroupBy>>) (kafka_consumer_offset{<<.LabelMatchers>>})'
     
-    - seriesQuery: 'kafka_topic_partition_under_replicated{namespace!="",pod!=""}'
+    - seriesQuery: 'kafka_topic_partition_under_replicated{namespace="{{ .Release.Namespace }}",pod!=""}'
       resources:
         overrides:
           namespace: {resource: "namespace"}

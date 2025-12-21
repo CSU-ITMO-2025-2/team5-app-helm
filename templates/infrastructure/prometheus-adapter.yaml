@@ -6,7 +6,7 @@ metadata:
     app: prometheus-adapter
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   name: prometheus-adapter
   labels:
@@ -38,14 +38,14 @@ rules:
   - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: prometheus-adapter
   labels:
     app: prometheus-adapter
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
+  kind: Role
   name: prometheus-adapter
 subjects:
 - kind: ServiceAccount
