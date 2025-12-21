@@ -1,0 +1,11 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ui-service-pdb
+  labels:
+    app: ui-service
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: ui-service
