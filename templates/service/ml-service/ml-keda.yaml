@@ -21,3 +21,6 @@ spec:
         consumerGroup: {{ .Values.ml.keda.consumerGroup | quote }}
         lagThreshold: "{{ .Values.ml.keda.lagThreshold }}"
         activationLagThreshold: "1"
+        disableWildcardSubscriptions: "true"
+      authenticationRef:
+        name: ml-service-kafka-auth

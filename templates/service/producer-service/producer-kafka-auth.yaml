@@ -1,0 +1,14 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: producer-service-kafka-auth
+  labels:
+    app: producer-service
+spec:
+  secretTargetRef:
+    - parameter: username
+      name: team5-secret
+      key: KAFKA_PRODUCER_PASSWORD
+    - parameter: password
+      name: team5-secret
+      key: KAFKA_PRODUCER_PASSWORD

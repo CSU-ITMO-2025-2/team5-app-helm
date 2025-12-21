@@ -21,3 +21,6 @@ spec:
         consumerGroup: {{ .Values.producer.keda.consumerGroup | quote }}
         lagThreshold: "{{ .Values.producer.keda.lagThreshold }}"
         activationLagThreshold: "1"
+        disableWildcardSubscriptions: "true"
+      authenticationRef:
+        name: producer-service-kafka-auth
