@@ -1,0 +1,14 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: ml-service-kafka-auth
+  labels:
+    app: ml-service
+spec:
+  secretTargetRef:
+    - parameter: username
+      name: team5-secret
+      key: KAFKA_ML_PASSWORD
+    - parameter: password
+      name: team5-secret
+      key: KAFKA_ML_PASSWORD

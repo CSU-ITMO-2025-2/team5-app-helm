@@ -1,0 +1,14 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: notification-service-kafka-auth
+  labels:
+    app: notification-service
+spec:
+  secretTargetRef:
+    - parameter: username
+      name: team5-secret
+      key: KAFKA_NOTIFICATION_PASSWORD
+    - parameter: password
+      name: team5-secret
+      key: KAFKA_NOTIFICATION_PASSWORD

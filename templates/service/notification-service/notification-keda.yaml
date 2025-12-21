@@ -21,3 +21,6 @@ spec:
         consumerGroup: {{ .Values.notification.keda.consumerGroup | quote }}
         lagThreshold: "{{ .Values.notification.keda.lagThreshold }}"
         activationLagThreshold: "1"
+        disableWildcardSubscriptions: "true"
+      authenticationRef:
+        name: notification-service-kafka-auth
