@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adapter-config
+  labels:
+    app: prometheus-adapter
+data:
+  config.yaml: |
+    rules:
+    - seriesQuery: 'kafka_topic_partition_current_offset{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        matches: "^kafka_(.*)_partition_(.*)_current_offset"
+        as: "${1}_partition_${2}_current_offset"
+      metricsQuery: 'sum by (<<.GroupBy>>) (kafka_topic_partition_current_offset{<<.LabelMatchers>>})'
+    
+    - seriesQuery: 'kafka_topic_partition_in_sync_replica{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        matches: "^kafka_(.*)_partition_(.*)_in_sync_replica"
+        as: "${1}_partition_${2}_in_sync_replica"
+      metricsQuery: 'sum by (<<.GroupBy>>) (kafka_topic_partition_in_sync_replica{<<.LabelMatchers>>})'
+    
+    - seriesQuery: 'kafka_consumer_lag{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        matches: "^kafka_consumer_lag"
+        as: "kafka_consumer_lag"
+      metricsQuery: 'sum by (<<.GroupBy>>) (kafka_consumer_lag{<<.LabelMatchers>>})'
+    
+    - seriesQuery: 'kafka_consumer_offset{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        matches: "^kafka_consumer_offset"
+        as: "kafka_consumer_offset"
+      metricsQuery: 'sum by (<<.GroupBy>>) (kafka_consumer_offset{<<.LabelMatchers>>})'
+    
+    - seriesQuery: 'kafka_topic_partition_under_replicated{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace: {resource: "namespace"}
+          pod: {resource: "pod"}
+      name:
+        matches: "^kafka_(.*)_partition_(.*)_under_replicated"
+        as: "${1}_partition_${2}_under_replicated"
+      metricsQuery: 'sum by (<<.GroupBy>>) (kafka_topic_partition_under_replicated{<<.LabelMatchers>>})'
