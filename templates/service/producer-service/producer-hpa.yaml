@@ -27,14 +27,13 @@ spec:
     - type: External
       external:
         metric:
-          name: kafka_topic_partition_current_offset
+          name: kafka_messages_in_per_sec
           selector:
             matchLabels:
-              topic: "raw-reviews"
               namespace: {{ .Release.Namespace }}
         target:
           type: AverageValue
-          averageValue: "100"
+          averageValue: "10"
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 300
