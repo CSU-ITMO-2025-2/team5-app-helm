@@ -67,7 +67,7 @@ spec:
       serviceAccountName: prometheus-adapter
       containers:
         - name: prometheus-adapter
-          image: k8s.gcr.io/prometheus-adapter/prometheus-adapter:v0.11.0
+          image: {{ .Values.monitoring.prometheus.image.repository }}:{{ .Values.monitoring.prometheus.image.tag }}
           args:
             - --cert-dir=/var/run/serving-cert
             - --config=/etc/adapter/config.yaml
