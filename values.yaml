@@ -141,6 +141,9 @@ monitoring:
     - "auth.{{ .Release.Namespace }}.svc.cluster.local:8000"
     - "ml.{{ .Release.Namespace }}.svc.cluster.local:7070"
     - "producer.{{ .Release.Namespace }}.svc.cluster.local:5050"
+    - "my-cluster-kafka-0.{{ .Release.Namespace }}.svc.cluster.local:9404"
+    - "my-cluster-kafka-1.{{ .Release.Namespace }}.svc.cluster.local:9404"
+    - "my-cluster-kafka-2.{{ .Release.Namespace }}.svc.cluster.local:9404"
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
@@ -193,16 +196,3 @@ tolerations: []
 affinity: {}
 env: {}
 databaseSecretName: "db-credentials"
-
-kafkaExporter:
-  enabled: true
-  image:
-    repository: quay.io/cloudhut/kafka-exporter
-    tag: "v1.7.0"
-  resources:
-    requests:
-      memory: 64Mi
-      cpu: 50m
-    limits:
-      memory: 128Mi
-      cpu: 100m
