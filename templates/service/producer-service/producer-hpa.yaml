@@ -31,6 +31,7 @@ spec:
           selector:
             matchLabels:
               topic: "raw-reviews"
+              namespace: {{ .Release.Namespace }}
         target:
           type: AverageValue
           averageValue: "100"
