@@ -1,0 +1,23 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: producer-service-keda
+  labels:
+    app: producer-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: producer-service
+  minReplicaCount: {{ .Values.producer.keda.minReplicas }}
+  maxReplicaCount: {{ .Values.producer.keda.maxReplicas }}
+  pollingInterval: {{ .Values.producer.keda.pollingInterval }}
+  cooldownPeriod: {{ .Values.producer.keda.cooldownPeriod }}
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServers: {{ .Values.producer.keda.bootstrapServers | quote }}
+        topic: {{ .Values.producer.keda.topic | quote }}
+        consumerGroup: {{ .Values.producer.keda.consumerGroup | quote }}
+        lagThreshold: "{{ .Values.producer.keda.lagThreshold }}"
+        activationLagThreshold: "1"
