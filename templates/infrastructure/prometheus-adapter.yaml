@@ -69,26 +69,20 @@ spec:
         - name: prometheus-adapter
           image: {{ .Values.monitoring.prometheus.image.repository }}:{{ .Values.monitoring.prometheus.image.tag }}
           args:
-            - --cert-dir=/var/run/serving-cert
             - --config=/etc/adapter/config.yaml
             - --logtostderr=true
             - --prometheus-url=http://prometheus.{{ .Release.Namespace }}.svc.cluster.local:9090/
             - --metrics-relist-interval=1m
             - --v=4
-            - --secure-port=6443
-            - --tls-cert-file=/var/run/serving-cert/tls.crt
-            - --tls-private-key-file=/var/run/serving-cert/tls.key
+            - --port=8080
             - --external-only
             - --external-labels=namespace={{ .Release.Namespace }}
           volumeMounts:
             - mountPath: /etc/adapter
               name: config
-            - mountPath: /var/run/serving-cert
-              name: serving-cert
-              readOnly: true
           ports:
-            - containerPort: 6443
-              name: https
+            - containerPort: 8080
+              name: http
           resources:
             requests:
               memory: 64Mi
@@ -100,9 +94,6 @@ spec:
         - name: config
           configMap:
             name: adapter-config
-        - name: serving-cert
-          secret:
-            secretName: adapter-serving-cert
 ---
 apiVersion: v1
 kind: Service
@@ -114,8 +105,8 @@ spec:
   selector:
     app: prometheus-adapter
   ports:
-    - name: https
-      port: 443
-      targetPort: 6443
+    - name: http
+      port: 80
+      targetPort: 8080
   type: ClusterIP
 ---
