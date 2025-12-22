@@ -6,9 +6,6 @@ metadata:
     app: producer-service
 spec:
   secretTargetRef:
-    - parameter: sasl
-      name: team5-secret
-      key: sasl
     - parameter: username
       name: team5-secret
       key: KAFKA_PRODUCER_USER
