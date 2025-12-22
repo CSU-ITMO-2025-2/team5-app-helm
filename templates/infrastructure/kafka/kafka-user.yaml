@@ -22,6 +22,18 @@ spec:
           patternType: literal
         operations: [Read, Write, Create, Describe]
         host: "*"
+      - resource:
+          type: topic
+          name: raw_reviews
+          patternType: literal
+        operations: [Read, Write, Create, Describe]
+        host: "*"
+      - resource:
+          type: group
+          name: producer-group
+          patternType: literal
+        operations: [Read, Describe]
+        host: "*"
 ---
 apiVersion: kafka.strimzi.io/v1
 kind: KafkaUser
@@ -44,6 +56,12 @@ spec:
       - resource: 
           type: topic 
           name: {{ .Values.kafka.topics.rawReviews.name }}
+          patternType: literal
+        operations: [Read, Describe]
+        host: "*"
+      - resource: 
+          type: topic
+          name: raw_reviews
           patternType: literal
         operations: [Read, Describe]
         host: "*"
