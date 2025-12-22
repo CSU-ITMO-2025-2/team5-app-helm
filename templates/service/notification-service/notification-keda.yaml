@@ -16,12 +16,13 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9093
-        topic: processed-reviews
-        consumerGroup: notification-group
-        lagThreshold: "50"
-        securityProtocol: SASL_SSL
-        saslMechanism: SCRAM-SHA-512
+        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
+        topic: {{ .Values.notification.keda.topic | quote }}
+        consumerGroup: {{ .Values.notification.keda.consumerGroup | quote }}
+        lagThreshold: "{{ .Values.notification.keda.lagThreshold }}"
+        activationLagThreshold: "1"
+        disableWildcardSubscriptions: "true"
+        sasl: "scram_sha512"
 
       authenticationRef:
         name: notification-service-kafka-auth
