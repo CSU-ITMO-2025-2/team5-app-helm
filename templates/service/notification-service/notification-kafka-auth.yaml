@@ -10,6 +10,3 @@ spec:
     - parameter: saslPassword
       name: team5-secret
       key: KAFKA_NOTIFICATION_PASSWORD
-    - parameter: ca
-      name: my-cluster-cluster-ca-cert
-      key: ca.crt
