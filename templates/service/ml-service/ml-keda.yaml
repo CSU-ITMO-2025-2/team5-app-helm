@@ -18,7 +18,7 @@ spec:
       metadata:
         bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
         topic: raw_reviews
-        consumerGroup: {{ .Values.ml.keda.consumerGroup | quote }}
+        consumerGroup: ml-service-group
         lagThreshold: "50"
         activationLagThreshold: "1"
         disableWildcardSubscriptions: "true"
