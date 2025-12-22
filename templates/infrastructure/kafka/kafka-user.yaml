@@ -20,7 +20,7 @@ spec:
           type: topic
           name: {{ .Values.kafka.topics.rawReviews.name }}
           patternType: literal
-        operations: [Write, Create, Describe]
+        operations: [Read, Write, Create, Describe]
         host: "*"
 ---
 apiVersion: kafka.strimzi.io/v1
@@ -51,7 +51,7 @@ spec:
           type: topic
           name: {{ .Values.kafka.topics.processedReviews.name }}
           patternType: literal
-        operations: [Write, Create, Describe]
+        operations: [Read, Write, Create, Describe]
         host: "*"
       - resource:
           type: group
