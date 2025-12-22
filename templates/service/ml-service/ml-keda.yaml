@@ -16,11 +16,12 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9093
+        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
         topic: {{ .Values.ml.keda.topic | quote }}
         consumerGroup: {{ .Values.ml.keda.consumerGroup | quote }}
         lagThreshold: "{{ .Values.ml.keda.lagThreshold }}"
         activationLagThreshold: "1"
         disableWildcardSubscriptions: "true"
+        sasl: "scram_sha512"
       authenticationRef:
         name: ml-service-kafka-auth
