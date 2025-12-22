@@ -17,9 +17,9 @@ spec:
     - type: kafka
       metadata:
         bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
-        topic: {{ .Values.notification.keda.topic | quote }}
-        consumerGroup: {{ .Values.notification.keda.consumerGroup | quote }}
-        lagThreshold: "{{ .Values.notification.keda.lagThreshold }}"
+        topic: {{ .Values.kafka.topics.processedReviews.name }}
+        consumerGroup: {{ .Values.kafka.groups.notificationService }}
+        lagThreshold: "50"
         activationLagThreshold: "1"
         disableWildcardSubscriptions: "true"
         sasl: "scram_sha512"

@@ -6,9 +6,9 @@ metadata:
     app: ml-service
 spec:
   secretTargetRef:
-    - parameter: saslUsername
+    - parameter: username
       name: team5-secret
       key: ml-user
-    - parameter: saslPassword
+    - parameter: password
       name: team5-secret
       key: KAFKA_ML_PASSWORD

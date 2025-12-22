@@ -4,9 +4,9 @@ metadata:
   name: notification-service-kafka-auth
 spec:
   secretTargetRef:
-    - parameter: saslUsername
+    - parameter: username
       name: team5-secret
       key: notification-user
-    - parameter: saslPassword
+    - parameter: password
       name: team5-secret
       key: KAFKA_NOTIFICATION_PASSWORD
