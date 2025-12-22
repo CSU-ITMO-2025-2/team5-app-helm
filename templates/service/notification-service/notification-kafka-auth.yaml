@@ -6,7 +6,7 @@ spec:
   secretTargetRef:
     - parameter: username
       name: team5-secret
-      key: notification-user
+      key: KAFKA_NOTIFICATION_USER
     - parameter: password
       name: team5-secret
       key: KAFKA_NOTIFICATION_PASSWORD
