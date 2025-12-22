@@ -12,9 +12,9 @@ ml:
       memory: 256Mi
   keda:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 15
-    pollingInterval: 10
+    minReplicas: 1
+    maxReplicas: 5
+    pollingInterval: 30
     cooldownPeriod: 300
     bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
     topic: "{{ .Values.kafka.topics.rawReviews.name }}"
@@ -44,9 +44,9 @@ producer:
       memory: 200Mi
   keda:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 10
-    pollingInterval: 10
+    minReplicas: 1
+    maxReplicas: 5
+    pollingInterval: 30
     cooldownPeriod: 300
     bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
     topic: "{{ .Values.kafka.topics.rawReviews.name }}"
@@ -65,9 +65,9 @@ notification:
       memory: 512Mi
   keda:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 8
-    pollingInterval: 10
+    minReplicas: 1
+    maxReplicas: 2
+    pollingInterval: 30
     cooldownPeriod: 300
     bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
     topic: "{{ .Values.kafka.topics.processedReviews.name }}"
