@@ -16,7 +16,7 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        bootstrapServers: {{ .Values.producer.keda.bootstrapServers | quote }}
+        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9093
         topic: {{ .Values.producer.keda.topic | quote }}
         consumerGroup: {{ .Values.producer.keda.consumerGroup | quote }}
         lagThreshold: "{{ .Values.producer.keda.lagThreshold }}"

@@ -16,7 +16,7 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
+        bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9093
         topic: processed-reviews
         consumerGroup: notification-group
         lagThreshold: "50"
