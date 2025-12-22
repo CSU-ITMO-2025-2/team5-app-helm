@@ -8,7 +8,7 @@ spec:
   secretTargetRef:
     - parameter: username
       name: team5-secret
-      key: KAFKA_PRODUCER_PASSWORD
+      key: producer
     - parameter: password
       name: team5-secret
       key: KAFKA_PRODUCER_PASSWORD
