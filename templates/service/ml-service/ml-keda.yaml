@@ -19,7 +19,7 @@ spec:
         bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
         topic: {{ .Values.ml.keda.topic | quote }}
         consumerGroup: {{ .Values.ml.keda.consumerGroup | quote }}
-        lagThreshold: "{{ .Values.ml.keda.lagThreshold }}"
+        lagThreshold: "50"
         activationLagThreshold: "1"
         disableWildcardSubscriptions: "true"
         sasl: "scram_sha512"
