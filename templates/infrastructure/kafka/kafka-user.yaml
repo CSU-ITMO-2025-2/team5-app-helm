@@ -57,7 +57,7 @@ spec:
           type: group
           name: {{ .Values.kafka.groups.mlService }}
           patternType: literal
-        operations: [Read]
+        operations: [Read, Describe]
         host: "*"
 ---
 apiVersion: kafka.strimzi.io/v1
@@ -88,5 +88,5 @@ spec:
           type: group
           name: {{ .Values.kafka.groups.notificationService }}
           patternType: literal
-        operations: [Read]
+        operations: [Read, Describe]
         host: "*"
