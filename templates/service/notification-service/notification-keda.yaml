@@ -20,7 +20,8 @@ spec:
         topic: processed-reviews
         consumerGroup: notification-group
         lagThreshold: "50"
-        securityProtocol: SASL_PLAINTEXT
+        securityProtocol: SASL_SSL
         saslMechanism: SCRAM-SHA-512
+
       authenticationRef:
         name: notification-service-kafka-auth

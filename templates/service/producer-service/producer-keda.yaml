@@ -22,5 +22,7 @@ spec:
         lagThreshold: "{{ .Values.producer.keda.lagThreshold }}"
         activationLagThreshold: "1"
         disableWildcardSubscriptions: "true"
+        tls: "enable"
+        sasl: "scram_sha512"
       authenticationRef:
         name: producer-service-kafka-auth
