@@ -17,7 +17,7 @@ spec:
     - type: kafka
       metadata:
         bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
-        topic: raw_reviews
+        topic: raw-reviews
         consumerGroup: ml-service-group
         lagThreshold: "5"
         activationLagThreshold: "1"
