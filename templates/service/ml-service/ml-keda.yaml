@@ -13,14 +13,31 @@ spec:
   maxReplicaCount: {{ .Values.ml.keda.maxReplicas }}
   pollingInterval: {{ .Values.ml.keda.pollingInterval }}
   cooldownPeriod: {{ .Values.ml.keda.cooldownPeriod }}
+
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 60
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 60
+        scaleDown:
+          stabilizationWindowSeconds: 600
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 300
+
   triggers:
     - type: kafka
       metadata:
         bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
         topic: raw-reviews
         consumerGroup: ml-service-group
-        lagThreshold: "50"
-        activationLagThreshold: "20"
+        lagThreshold: "100"
+        activationLagThreshold: "50"
         disableWildcardSubscriptions: "true"
         sasl: "scram_sha512"
       authenticationRef:

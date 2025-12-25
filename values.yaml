@@ -12,10 +12,10 @@ ml:
       memory: 256Mi
   keda:
     enabled: true
-    minReplicas: 1
+    minReplicas: 2
     maxReplicas: 5
     pollingInterval: 30
-    cooldownPeriod: 60
+    cooldownPeriod: 600
     bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
     topic: "{{ .Values.kafka.topics.rawReviews.name }}"
     consumerGroup: "{{ .Values.kafka.groups.mlService }}"
