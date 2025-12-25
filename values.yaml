@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 ml:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-ml
