@@ -15,7 +15,7 @@ ml:
     minReplicas: 1
     maxReplicas: 5
     pollingInterval: 30
-    cooldownPeriod: 30
+    cooldownPeriod: 60
     bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
     topic: "{{ .Values.kafka.topics.rawReviews.name }}"
     consumerGroup: "{{ .Values.kafka.groups.mlService }}"
