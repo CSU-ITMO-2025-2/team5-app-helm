@@ -76,6 +76,8 @@ ui:
     limits:
       cpu: 200m
       memory: 256Mi
+  keda:
+    enabled: false
 kafka:
   bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
   credentialsSecretName: "team5-secret"
