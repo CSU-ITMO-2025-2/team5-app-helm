@@ -5,15 +5,15 @@ ml:
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 50m
-      memory: 128Mi
+      cpu: 25m
+      memory: 64Mi
     limits:
       cpu: 50m
-      memory: 256Mi
+      memory: 128Mi
   keda:
     enabled: true
     minReplicas: 2
-    maxReplicas: 5
+    maxReplicas: 6
     pollingInterval: 30
     cooldownPeriod: 600
     bootstrapServers: "my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092"
@@ -26,22 +26,22 @@ auth:
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 50m
-      memory: 64Mi
+      cpu: 25m
+      memory: 32Mi
     limits:
       cpu: 50m
-      memory: 128Mi
+      memory: 64Mi
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 50m
-      memory: 100Mi
+      cpu: 25m
+      memory: 64Mi
     limits:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 50m
+      memory: 128Mi
   keda:
     enabled: false
 notification:
@@ -50,11 +50,11 @@ notification:
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 150m
-      memory: 256Mi
+      cpu: 25m
+      memory: 64Mi
     limits:
-      cpu: 200m
-      memory: 512Mi
+      cpu: 50m
+      memory: 128Mi
   keda:
     enabled: true
     minReplicas: 2
@@ -71,11 +71,11 @@ ui:
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 25m
+      memory: 64Mi
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 50m
+      memory: 128Mi
   keda:
     enabled: false
 kafka:
@@ -111,11 +111,11 @@ monitoring:
     retention: "12h"
     resources:
       requests:
-        cpu: 50m
-        memory: 128Mi
+        cpu: 25m
+        memory: 64Mi
       limits:
         cpu: 50m
-        memory: 256Mi
+        memory: 128Mi
   grafana:
     adminPasswordExternalSecret: true
     externalSecretPath: "kv/data/team5/grafana"
@@ -128,11 +128,11 @@ monitoring:
       tag: "10.3.0"
     resources:
       requests:
-        cpu: 50m
-        memory: 100Mi
+        cpu: 25m
+        memory: 64Mi
       limits:
         cpu: 50m
-        memory: 100Mi
+        memory: 128Mi
   loki:
     image:
       repository: grafana/loki
@@ -145,10 +145,10 @@ monitoring:
       fsGroup: 0
     resources:
       requests:
-        cpu: "50m"
-        memory: "100Mi"
+        cpu: "25m"
+        memory: "64Mi"
       limits:
-        cpu: "100m"
+        cpu: "50m"
         memory: "100Mi"
   promtail:
     image:
@@ -156,11 +156,11 @@ monitoring:
       tag: "2.9.2"
     resources:
       requests:
-        cpu: "50m"
-        memory: "100Mi"
+        cpu: "25m"
+        memory: "63Mi"
       limits:
-        cpu: "100m"
-        memory: "200Mi"
+        cpu: "50m"
+        memory: "128Mi"
   scrapeTargets:
     - "auth.team5-ns.svc.cluster.local:8000"
     - "ml.team5-ns.svc.cluster.local:7070"
