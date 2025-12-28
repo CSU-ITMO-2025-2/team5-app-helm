@@ -38,7 +38,7 @@ spec:
               value: {{ .Values.kafka.topics.processedReviews.name }}
           readinessProbe:
             httpGet:
-              path: /ml/consumer_ready
+              path: /ml/consumer/status
               port: 7070
             initialDelaySeconds: 30
             timeoutSeconds: 10
