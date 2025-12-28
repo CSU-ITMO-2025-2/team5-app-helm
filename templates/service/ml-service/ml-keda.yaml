@@ -36,8 +36,8 @@ spec:
         bootstrapServers: my-cluster-kafka-bootstrap.team5-ns.svc.cluster.local:9092
         topic: raw-reviews
         consumerGroup: ml-service-group
-        lagThreshold: "100"
-        activationLagThreshold: "50"
+        lagThreshold: "10"
+        activationLagThreshold: "20"
         disableWildcardSubscriptions: "true"
         sasl: "scram_sha512"
       authenticationRef:
