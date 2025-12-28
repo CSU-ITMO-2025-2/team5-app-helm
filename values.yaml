@@ -204,11 +204,11 @@ ingress:
       secretName: team5-prod-secret
 resources:
   limits:
-    cpu: 25m
-    memory: 32Mi
-  requests:
     cpu: 50m
     memory: 64Mi
+  requests:
+    cpu: 25m
+    memory: 32Mi
 autoscaling:
   enabled: true
   minReplicas: 2
