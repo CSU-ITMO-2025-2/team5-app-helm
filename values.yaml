@@ -27,10 +27,10 @@ auth:
   resources:
     requests:
       cpu: 25m
-      memory: 32Mi
+      memory: 64Mi
     limits:
       cpu: 50m
-      memory: 64Mi
+      memory: 128Mi
 producer:
   image:
     repository: ghcr.io/csu-itmo-2025-2/team5-producer
