@@ -37,11 +37,11 @@ producer:
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 25m
-      memory: 64Mi
-    limits:
       cpu: 50m
       memory: 128Mi
+    limits:
+      cpu: 25m
+      memory: 64Mi
   keda:
     enabled: false
 notification:
