@@ -50,11 +50,11 @@ notification:
     tag: "sha-5a18778"
   resources:
     requests:
-      cpu: 25m
-      memory: 64Mi
-    limits:
       cpu: 50m
       memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
   keda:
     enabled: true
     minReplicas: 2
