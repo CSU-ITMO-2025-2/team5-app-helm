@@ -58,7 +58,7 @@ EOF
   --consumer.config notification.properties \
   --group notification-group \
   --from-beginning
-# ждем сообщения, если пришло - все гуд
+# ждем сообщения, если пришло - все гуд!
 ```
 
 Жизнь удалась
