@@ -203,12 +203,12 @@ ingress:
         - team5.kubepractice.ru
       secretName: team5-prod-secret
 resources:
-  limits:
-    cpu: 50m
-    memory: 128Mi
   requests:
     cpu: 25m
     memory: 64Mi
+  limits:
+    cpu: 50m
+    memory: 128Mi
 autoscaling:
   enabled: true
   minReplicas: 2
